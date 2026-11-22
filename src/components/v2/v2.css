@@ -1,0 +1,130 @@
+/* v2 landing only. Every class is prefixed v2- so the original page is untouched.
+   Light + funky: warm paper, chunky ink outlines, sticker shadows, studio colours. */
+.v2-root {
+  --paper: #fff6e9;
+  --paper-2: #fdebd3;
+  --ink: #141210;
+  --terra: #f2643a;
+  --butter: #ffd84d;
+  --sage: #a8c69f;
+  --sky: #8ec5ff;
+  --blush: #ffb8c6;
+  --lilac: #c9b6ff;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+.v2-display {
+  font-family: var(--font-heading), var(--font-sans), sans-serif;
+  letter-spacing: -0.04em;
+}
+.v2-serif {
+  font-family: var(--font-v2-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+/* chunky outline + offset "sticker" shadow */
+.v2-pop {
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.v2-pop-sm {
+  border: 2px solid var(--ink);
+  box-shadow: 2.5px 2.5px 0 var(--ink);
+}
+.v2-press {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.v2-press:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+/* faint architect's grid */
+.v2-blueprint {
+  background-image: linear-gradient(rgba(20, 18, 16, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 18, 16, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(20, 18, 16, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 18, 16, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+}
+.v2-blueprint-blue {
+  background-color: #1f4fd8;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+}
+/* highlighter swoosh behind words */
+.v2-mark {
+  position: relative;
+  white-space: nowrap;
+  z-index: 0;
+}
+.v2-mark::before {
+  content: "";
+  position: absolute;
+  left: -0.12em;
+  right: -0.12em;
+  bottom: 0.06em;
+  height: 0.48em;
+  background: var(--mark, var(--butter));
+  border-radius: 0.3em 0.6em 0.4em 0.7em;
+  transform: rotate(-1.5deg);
+  z-index: -1;
+}
+.v2-arch {
+  border-radius: 999px 999px 28px 28px;
+}
+
+/* border beam (adapted from 21st.dev magicui border-beam) */
+.v2-beam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  border: calc(var(--bw, 2) * 1px) solid transparent;
+  mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+}
+.v2-beam::after {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  width: calc(var(--size, 160) * 1px);
+  background: linear-gradient(to left, var(--c1, #f2643a), var(--c2, #ffd84d), transparent);
+  offset-anchor: 90% 50%;
+  offset-path: rect(0 auto auto 0 round calc(var(--size, 160) * 1px));
+  animation: v2-beam calc(var(--dur, 6) * 1s) infinite linear;
+}
+@keyframes v2-beam {
+  to { offset-distance: 100%; }
+}
+@keyframes v2-marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes v2-marquee-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes v2-pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes v2-wobble {
+  0%, 100% { transform: rotate(var(--r, -6deg)) translateY(0); }
+  50% { transform: rotate(calc(var(--r, -6deg) * -0.5)) translateY(-5px); }
+}
+@keyframes v2-spin {
+  to { transform: rotate(360deg); }
+}
+.v2-wobble {
+  animation: v2-wobble 4.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2-beam::after,
+  .v2-marquee-y,
+  .v2-wobble,
+  .v2-spin {
+    animation: none !important;
+  }
+}
